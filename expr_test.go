@@ -1160,6 +1160,38 @@ func TestExpr_call_floatarg_func_with_int(t *testing.T) {
 	}
 }
 
+func TestExpr_call_bitwise_operators_with_uint(t *testing.T) {
+	env := map[string]interface{}{
+		"one":   uint(1),
+		"two":   uint(2),
+		"three": uint(3),
+		"five":  uint(5),
+		"six":   uint(6),
+		"eight": uint(8),
+	}
+	for _, each := range []struct {
+		input    string
+		expected uint
+	}{
+		{"one << one", 2},
+		{"eight >> two", 2},
+		{"three & two", 2},
+		{"three ^ six", 5},
+		{"three | five", 7},
+		{"~three", 18446744073709551612},
+		{"six & one << two", 4},
+	} {
+		p, err := expr.Compile(
+			each.input,
+			expr.Env(env))
+		require.NoError(t, err)
+
+		out, err := expr.Run(p, env)
+		require.NoError(t, err)
+		require.Equal(t, each.expected, out)
+	}
+}
+
 func TestConstExpr_error(t *testing.T) {
 	env := map[string]interface{}{
 		"divide": func(a, b int) int { return a / b },

@@ -173,6 +173,11 @@ func (v *visitor) UnaryNode(node *ast.UnaryNode) reflect.Type {
 			return t
 		}
 
+	case "~":
+		if isInteger(t) {
+			return integerType
+		}
+
 	default:
 		return v.error(node, "unknown operator (%v)", node.Operator)
 	}
@@ -256,6 +261,11 @@ func (v *visitor) BinaryNode(node *ast.BinaryNode) reflect.Type {
 	case "..":
 		if isInteger(l) && isInteger(r) {
 			return reflect.SliceOf(integerType)
+		}
+
+	case "<<", ">>", "&", "^", "|", "~":
+		if isInteger(l) && isInteger(r) {
+			return integerType
 		}
 
 	default:
