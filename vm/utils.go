@@ -2,6 +2,7 @@ package vm
 
 import (
 	"reflect"
+	"sort"
 	"time"
 )
 
@@ -20,6 +21,12 @@ type Scope struct {
 	Len   int
 	Count int
 	Acc   any
+	// Map iteration state. Keys holds the sorted keys of the iterated map;
+	// it is non-nil if and only if the scope iterates over a map. Marked
+	// collects the keys of elements kept by collecting builtins.
+	Keys   []string
+	Marked []string
+	Map    map[string]any // Fast path for map[string]any
 	// Fast paths
 	Ints    []int
 	Floats  []float64
@@ -41,7 +48,27 @@ func (s *Scope) Item() any {
 	if s.Anys != nil {
 		return s.Anys[s.Index]
 	}
+	if s.Keys != nil {
+		key := s.Keys[s.Index]
+		if s.Map != nil {
+			return s.Map[key]
+		}
+		k := reflect.ValueOf(key)
+		if kt := s.Array.Type().Key(); kt.Kind() != reflect.Interface {
+			k = k.Convert(kt)
+		}
+		return s.Array.MapIndex(k).Interface()
+	}
 	return s.Array.Index(s.Index).Interface()
+}
+
+func sortedKeys(m map[string]any) []string {
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
 }
 
 type groupBy = map[any][]any

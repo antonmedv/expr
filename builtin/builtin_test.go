@@ -34,6 +34,7 @@ func TestBuiltin(t *testing.T) {
 		"NestedAnyArrays":  []any{[]any{1, 2}, []any{3, 4}},
 		"MixedNestedArray": []any{1, []int{2, 3}, []float64{4.0, 5.0}},
 		"NestedInt32Array": []any{[]int32{1, 2}, []int32{3, 4}},
+		"MapOfInt":         map[string]int{"a": 1, "b": 2, "c": 3},
 	}
 
 	var tests = []struct {
@@ -197,6 +198,21 @@ func TestBuiltin(t *testing.T) {
 		{`flatten([["a", "b"], [1, 2, [3, [[[["c", "d"], "e"]]], 4]]])`, []any{"a", "b", 1, 2, 3, "c", "d", "e", 4}},
 		{`uniq([1, 15, "a", 2, 3, 5, 2, "a", 2, "b"])`, []any{1, 15, "a", 2, 3, 5, "b"}},
 		{`uniq([[1, 2], "a", 2, 3, [1, 2], [1, 3]])`, []any{[]any{1, 2}, "a", 2, 3, []any{1, 3}}},
+		{`filter(MapOfInt, # > 1)`, map[string]any{"b": 2, "c": 3}},
+		{`map(MapOfInt, # * 10)`, map[string]any{"a": 10, "b": 20, "c": 30}},
+		{`all(MapOfInt, # > 0)`, true},
+		{`any(MapOfInt, # > 2)`, true},
+		{`none(MapOfInt, # > 3)`, true},
+		{`one(MapOfInt, # == 2)`, true},
+		{`count(MapOfInt, # > 1)`, 2},
+		{`sum(MapOfInt)`, 6},
+		{`find(MapOfInt, # > 1)`, 2},
+		{`findLast(MapOfInt, # > 1)`, 3},
+		{`reduce(MapOfInt, #acc + #, 0)`, 6},
+		{`min(MapOfInt)`, 1},
+		{`max(MapOfInt)`, 3},
+		{`mean(MapOfInt)`, 2.0},
+		{`median(MapOfInt)`, 2.0},
 	}
 
 	for _, test := range tests {

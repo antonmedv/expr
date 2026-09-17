@@ -544,6 +544,37 @@ func (vm *VM) Run(program *Program, env any) (_ any, err error) {
 		case OpPointer:
 			vm.push(vm.currScope.Item())
 
+		case OpPointerIndex:
+			scope := vm.currScope
+			if scope.Keys != nil {
+				vm.push(scope.Keys[scope.Index])
+			} else {
+				vm.push(scope.Index)
+			}
+
+		case OpMarkKey:
+			scope := vm.currScope
+			if scope.Keys != nil {
+				scope.Marked = append(scope.Marked, scope.Keys[scope.Index])
+			}
+
+		case OpCollect:
+			size := vm.pop().(int)
+			vm.memGrow(uint(size))
+			if scope := vm.currScope; scope.Keys != nil {
+				m := make(map[string]any, size)
+				for i := size - 1; i >= 0; i-- {
+					m[scope.Marked[i]] = vm.pop()
+				}
+				vm.push(m)
+			} else {
+				array := make([]any, size)
+				for i := size - 1; i >= 0; i-- {
+					array[i] = vm.pop()
+				}
+				vm.push(array)
+			}
+
 		case OpThrow:
 			panic(vm.pop().(error))
 
@@ -621,9 +652,33 @@ func (vm *VM) Run(program *Program, env any) (_ any, err error) {
 			case []any:
 				s.Anys = v
 				s.Len = len(v)
+			case map[string]any:
+				s.Map = v
+				s.Keys = sortedKeys(v)
+				s.Len = len(v)
 			default:
-				s.Array = reflect.ValueOf(a)
-				s.Len = s.Array.Len()
+				r := reflect.ValueOf(a)
+				if r.Kind() == reflect.Map {
+					keys := make([]string, 0, r.Len())
+					iter := r.MapRange()
+					for iter.Next() {
+						k := iter.Key()
+						if k.Kind() == reflect.Interface {
+							k = k.Elem()
+						}
+						if k.Kind() != reflect.String {
+							panic(fmt.Errorf("cannot iterate over map with non-string keys (%T)", a))
+						}
+						keys = append(keys, k.String())
+					}
+					sort.Strings(keys)
+					s.Array = r
+					s.Keys = keys
+					s.Len = len(keys)
+				} else {
+					s.Array = r
+					s.Len = r.Len()
+				}
 			}
 			vm.Scopes = append(vm.Scopes, s)
 			vm.currScope = s
@@ -715,6 +770,10 @@ func (vm *VM) allocScope() *Scope {
 	s.Floats = nil
 	s.Strings = nil
 	s.Anys = nil
+	// Clear map iteration state
+	s.Keys = nil
+	s.Marked = nil
+	s.Map = nil
 	// Clear Array to release reference for GC (only matters for fallback path)
 	s.Array = reflect.Value{}
 	return s

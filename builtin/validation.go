@@ -13,8 +13,15 @@ func validateAggregateFunc(name string, args []reflect.Type) (reflect.Type, erro
 		return anyType, fmt.Errorf("not enough arguments to call %s", name)
 	default:
 		for _, arg := range args {
-			switch kind(deref.Type(arg)) {
+			t := deref.Type(arg)
+			switch kind(t) {
 			case reflect.Interface, reflect.Array, reflect.Slice:
+				return anyType, nil
+			case reflect.Map:
+				keyKind := t.Key().Kind()
+				if keyKind != reflect.String && !(keyKind == reflect.Interface && t.Key().NumMethod() == 0) {
+					return anyType, fmt.Errorf("invalid argument for %s (type %s)", name, arg)
+				}
 				return anyType, nil
 			case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64, reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Float32, reflect.Float64:
 			default:

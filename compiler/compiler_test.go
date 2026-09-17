@@ -517,33 +517,34 @@ func TestCompile_optimizes_jumps(t *testing.T) {
 			`filter([1, 2, 3, 4, 5], # > 3 && # != 4 && # != 5)`,
 			`0   OpPush  <0>  [1 2 3 4 5]
 1   OpBegin
-2   OpJumpIfEnd  <23>  (26)
+2   OpJumpIfEnd  <24>  (27)
 3   OpPointer
 4   OpPush  <1>  3
 5   OpMore
-6   OpJumpIfFalse  <16>  (23)
+6   OpJumpIfFalse  <17>  (24)
 7   OpPop
 8   OpPointer
 9   OpPush  <2>  4
 10  OpEqualInt
 11  OpNot
-12  OpJumpIfFalse  <10>  (23)
+12  OpJumpIfFalse  <11>  (24)
 13  OpPop
 14  OpPointer
 15  OpPush  <3>  5
 16  OpEqualInt
 17  OpNot
-18  OpJumpIfFalse  <4>  (23)
+18  OpJumpIfFalse  <5>  (24)
 19  OpPop
 20  OpIncrementCount
-21  OpPointer
-22  OpJump  <1>  (24)
-23  OpPop
-24  OpIncrementIndex
-25  OpJumpBackward  <24>  (2)
-26  OpGetCount
-27  OpEnd
-28  OpArray
+21  OpMarkKey
+22  OpPointer
+23  OpJump  <1>  (25)
+24  OpPop
+25  OpIncrementIndex
+26  OpJumpBackward  <25>  (2)
+27  OpGetCount
+28  OpCollect
+29  OpEnd
 `,
 		},
 		{

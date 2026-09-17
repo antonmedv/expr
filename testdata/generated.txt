@@ -928,7 +928,6 @@ $env | map(1) | sum(f64)
 $env | map(1.0) | filter(true)
 $env | map(1.0) | findLastIndex(ok)
 $env | map(1.0) | groupBy(foo)
-$env | map(1.0) | mean(0)
 $env | map(1.0) | none(ok)
 $env | map(1.0) | none(true)
 $env | map(1.0) | reduce(#)
@@ -3600,7 +3599,6 @@ $env?.[String] not matches str
 $env?.[String] not startsWith str
 $env?.[String] startsWith $env?.[Bar]
 $env?.[String] startsWith foo ?? add
-$env?.[String] startsWith min($env)
 $env?.[String] startsWith str
 $env?.[String] | get(i)
 $env?.[String]?.$env.list
@@ -5447,7 +5445,6 @@ $env?.i == first($env)
 $env?.i == i
 $env?.i == len($env)
 $env?.i == len(list)
-$env?.i == max($env)
 $env?.i > 0 * 1.0
 $env?.i > 1 ?? nil
 $env?.i > f64
@@ -5973,7 +5970,6 @@ $env[:str] not in foo || true
 -0 != f64
 -0 != i
 -0 != mean(f64)
--0 != min($env)
 -0 != nil
 -0 % 1
 -0 % i
@@ -6461,7 +6457,6 @@ $env[:str] not in foo || true
 -findLastIndex(array, ok)
 -findLastIndex(array, true)
 -findLastIndex(list, true)
--first($env | map(#index))
 -first(array)
 -float(0)
 -float(1)
@@ -6602,7 +6597,6 @@ $env[:str] not in foo || true
 -len(foo?.Bar)
 -len(list)
 -len(str)
--max($env).i
 -max(0 * 1)
 -max(0)
 -max(1)
@@ -7418,7 +7412,6 @@ $env[:str] not in foo || true
 1 < i > i
 1 < i ? ok : ok
 1 < i ?? f64
-1 < i or min($env)
 1 <= $env.f64
 1 <= $env.i
 1 <= $env?.f64
@@ -7739,7 +7732,6 @@ $env[:str] not in foo || true
 1.0 * 0 >= i
 1.0 * 0 ^ f64
 1.0 * 1 != i
-1.0 * 1 != max($env)
 1.0 * 1 ** i
 1.0 * 1 ?? add
 1.0 * 1 ?? list
@@ -10206,8 +10198,6 @@ $env[:str] not in foo || true
 [map(list, list)]
 [map(list, ok)]
 [map(list, str)]
-[max($env), f64]
-[max($env)]
 [max(0)]
 [max(0, 1.0)]
 [max(1)]
@@ -10234,8 +10224,6 @@ $env[:str] not in foo || true
 [median(f64)]
 [median(floor(0))]
 [median(i)]
-[min($env ?? foo)]
-[min($env)]
 [min(0)]
 [min(1)]
 [min(1.0)]
@@ -11152,7 +11140,6 @@ abs(list | findIndex(ok))
 abs(list | findIndex(true))
 abs(list | reduce(1))
 abs(list | sum(1.0))
-abs(max($env)?.f64)
 abs(max(0))
 abs(max(1))
 abs(max(1.0))
@@ -11252,7 +11239,6 @@ add != foo ?? $env
 add != i ?? foo
 add != list ?? greet
 add != max(array)
-add != min($env)
 add != nil && $env
 add != nil == true
 add != nil ?: 1
@@ -11302,7 +11288,6 @@ add == foo ?? i
 add == greet ?? $env
 add == i ?? str
 add == last($env)
-add == max($env)
 add == mean(array)
 add == nil != $env?.[Bar]
 add == nil && $env[foobar:foobar]
@@ -11789,7 +11774,6 @@ array != map($env, 1.0)
 array != map(array, $env)
 array != map(list, #)
 array != map(list, 1.0)
-array != min($env)
 array != nil == $env
 array != nil ? list : greet
 array != nil and ok
@@ -11854,8 +11838,6 @@ array == list != false
 array == list[:]
 array == map(array, #)
 array == map(list, true)
-array == max($env)?.greet
-array == min($env)
 array == min(array)
 array == nil != nil
 array == nil != ok
@@ -12600,7 +12582,6 @@ array | max(f64, 1.0)
 array | max(f64, f64)
 array | max(i)
 array | max(i, i)
-array | max(map($env, #index))
 array | mean(-1.0)
 array | mean(0 / 1)
 array | mean(0)
@@ -13872,12 +13853,6 @@ ceil(sum(array, #))
 ceil(sum(list, 1.0))
 ceil(sum(list, f64))
 ceil({foo: 1.0}?.foo)
-concat($env | map(1.0))
-concat($env | map(1.0))[:i]
-concat($env | map(add))
-concat($env | map(array))
-concat($env | map(foo))
-concat($env | map(greet))
 concat($env.array)
 concat($env.list)
 concat($env?.array | sortBy(#))
@@ -13979,7 +13954,6 @@ concat(concat(array, array))
 concat(concat(list))
 concat(false ?: array)
 concat(false ?: list)
-concat(filter($env, false))
 concat(flatten($env.array))
 concat(flatten(array))
 concat(flatten(list))
@@ -14035,15 +14009,6 @@ concat(list, list)
 concat(list, list) | any(true)
 concat(list, list)?.[i]
 concat(list[1:])
-concat(map($env, #index))
-concat(map($env, $env))
-concat(map($env, 1.0))
-concat(map($env, array))
-concat(map($env, array), list)
-concat(map($env, f64))
-concat(map($env, foo))
-concat(map($env, list))
-concat(map($env, ok))
 concat(map(array, #))
 concat(map(array, $env))
 concat(map(array, 1))
@@ -15013,7 +14978,6 @@ f64 == max(0)
 f64 == mean(1.0)
 f64 == median(1.0)
 f64 == median(i)
-f64 == min($env)
 f64 == min(1.0)
 f64 == nil != nil
 f64 == nil != ok
@@ -15506,7 +15470,6 @@ f64 not in array || sum($env)
 f64 not in i .. i
 f64 not in keys($env)
 f64 not in list ?? str
-f64 not in map($env, $env)
 f64 not in map(array, 1)
 f64 | max(0)
 f64 | max(0, 1)
@@ -16457,7 +16420,6 @@ find(map($env, $env), foo == #)
 find(map(array, 1.0), i != 1.0)
 find(map(list, #), ok)
 find(map(list, 0), ok)
-find(max($env), $env == i)
 find(nil ?? array, # > #)
 find(nil ?? list, # == #)
 find(sort($env), #.array.f64)
@@ -16564,7 +16526,6 @@ findIndex(list, str not contains str)
 findIndex(list, true) | min(1.0)
 findIndex(map($env, $env), #.String contains #)
 findIndex(map($env, $env), ok) ?? add
-findIndex(max($env), i > f64)
 findIndex(nil ?? $env, ok)
 findIndex(sort($env), #.String?.list(foobar))
 findIndex(sort($env), #.f64 - #.i)
@@ -16724,7 +16685,6 @@ findLast(list, true).String
 findLast(list, true).String()
 findLast(list, true)?.Bar
 findLast(map(list, ok), #)
-findLast(min($env), .array and false)
 findLast(sort($env), #)
 findLast(sort($env), .array)
 findLast(sort($env), .f64 != #.i)
@@ -17231,13 +17191,9 @@ first(map(list, 0))
 first(map(list, array))
 first(map(list, f64))
 first(map(list, foo))
-first(max($env))
 first(max(array))
 first(mean(array))
 first(median(array))
-first(min($env))
-first(min($env))?.add
-first(min($env)?.f64)
 first(min(array))
 first(min(array, 1, 1))
 first(nil ?? $env)
@@ -17284,13 +17240,6 @@ first(values($env))
 first({foo: 1.0}.f64)
 first({foo: greet, foo: nil}.ok)
 first({foo: i, foo: f64}.String)
-flatten($env | map($env))
-flatten($env | map(1.0))
-flatten($env | map(add))
-flatten($env | map(array))
-flatten($env | map(foo))
-flatten($env | map(i))
-flatten($env | map(list))
 flatten($env.array)
 flatten($env.list)
 flatten($env?.array)
@@ -17425,11 +17374,6 @@ flatten(list)[:]
 flatten(list[0:])
 flatten(list[1:])
 flatten(list[:])
-flatten(map($env, $env))
-flatten(map($env, 0))
-flatten(map($env, 1.0))
-flatten(map($env, f64))
-flatten(map($env, false))
 flatten(map(array, f64))
 flatten(map(array, i))
 flatten(map(array, true))
@@ -17773,7 +17717,6 @@ float(median(array))
 float(median(array, f64))
 float(median(f64))
 float(median(i))
-float(min($env).f64)
 float(min($env?.array))
 float(min(0))
 float(min(0, 1))
@@ -18931,10 +18874,8 @@ fromPairs($env).true && false
 fromPairs([list])
 fromPairs(array | take(0))
 fromPairs(array[:0])
-fromPairs(filter($env, false))
 fromPairs(filter(list, false))
 fromPairs(list[:0])
-fromPairs(map($env, list))
 fromPairs(sort($env))
 fromPairs(take(array, 0))
 fromPairs(toPairs($env))
@@ -19026,7 +18967,6 @@ greet != greet ?: greet
 greet != greet or ok
 greet != greet || $env
 greet != greet || false
-greet != max($env)
 greet != nil == nil
 greet != nil ? foo : true
 greet != nil ?? $env
@@ -19069,7 +19009,6 @@ greet == greet && $env
 greet == greet == ok
 greet == greet ? 1.0 : foo
 greet == greet and $env
-greet == min($env)
 greet == nil != nil
 greet == nil != ok
 greet == nil == true
@@ -19262,7 +19201,6 @@ greet in first($env)
 greet in flatten(list)
 greet in list ?? $env?.[array]
 greet in list ?? $env?.[i]
-greet in map($env, $env)
 greet in reverse(list)
 greet in sort($env)
 greet in toPairs($env)
@@ -19318,7 +19256,6 @@ greet(greet(type(true)))
 greet(if false { 1.0 } else { str })
 greet(if ok { str } else { nil })
 greet(if true { str } else { $env })
-greet(join($env | map(str)))
 greet(keys($env)?.[i])
 greet(last(list).Bar)
 greet(let x = str; x)
@@ -19329,7 +19266,6 @@ greet(list?.[i].Bar)
 greet(list?.[i].String())
 greet(lower(greet(str)))
 greet(lower(str))
-greet(min($env)?.str)
 greet(nil ?? str)
 greet(ok ? str : 1)
 greet(reduce(array, str))
@@ -20559,7 +20495,6 @@ i != list ?? str
 i != max(1.0)
 i != mean(f64)
 i != median(1.0)
-i != min($env)
 i != min(0)
 i != min(i)
 i != nil != $env
@@ -21339,7 +21274,6 @@ i == max(array)
 i == max(i)
 i == mean(1.0)
 i == median(f64)
-i == min($env)
 i == min(f64)
 i == nil == $env
 i == nil ? $env?.[i] : list
@@ -21826,7 +21760,6 @@ i in groupBy(list, #)?.i
 i in i .. 0
 i in last($env)
 i in list ?? str
-i in map($env, f64)
 i in sort(array)
 i in toPairs($env)
 i in {foo: 1.0}.greet
@@ -22433,7 +22366,6 @@ int(true ? 1 : array)
 int(true ? 1.0 : $env)
 int(true ? f64 : foo)
 int(true ? i : nil)
-join($env | filter(false))
 join([str])
 join(array | map(str))
 join(keys($env))
@@ -22501,8 +22433,6 @@ keys(groupBy(list, ok))
 keys(if true { $env } else { str })
 keys(list | groupBy(#))
 keys(list | groupBy(1))
-keys(max($env))
-keys(min($env))
 keys(nil ?? $env)
 keys(reduce(list, $env))
 keys({foo: $env})
@@ -22913,7 +22843,6 @@ last(list)?.String()
 last(list[1:])
 last(list[:1])
 last(map($env, $env))
-last(map($env, $env)).ok
 last(map($env, 1))
 last(map($env, 1.0))
 last(map($env, f64))
@@ -22930,17 +22859,14 @@ last(map(list, 1.0))
 last(map(list, array))
 last(map(list, foo))
 last(map(list, i))
-last(max($env))
 last(max($env?.Bar))
 last(max(0, array))
 last(max(array))
 last(mean(array))
 last(median(array))
 last(median(i, array))
-last(min($env))
 last(min(array))
 last(min(array, 1.0))
-last(min(if true { $env } else { f64 }))
 last(nil ?? $env)
 last(nil ?? array)
 last(ok ? list : ok)
@@ -23119,7 +23045,6 @@ len(false ?: str)
 len(filter($env, ok))
 len(flatten(array))
 len(flatten(list))
-len(flatten(map($env, $env)))
 len(foo.Bar)
 len(foo.String())
 len(foo?.Bar)
@@ -23203,8 +23128,6 @@ len(map(list, #index))
 len(map(list, add))
 len(map(list, f64))
 len(map(list, true))
-len(max($env))
-len(min($env))
 len(nil ?? array)
 len(nil ?? str)
 len(ok ? list : $env)
@@ -23653,7 +23576,6 @@ list != list and false
 list != list or false
 list != map(list, #)
 list != map(list, str)
-list != max($env)
 list != median(array)
 list != min(array)
 list != nil ? 1.0 : f64
@@ -25139,7 +25061,6 @@ map($env, #index) | filter(false)
 map($env, #index) | map(greet)
 map($env, #index) | reduce($env)
 map($env, #index) | reduce(0, $env)
-map($env, #index)?.[i]
 map($env, $env) ?? timezone(str)
 map($env, $env) in last($env)
 map($env, $env) | any(f64 == .foo)
@@ -25151,7 +25072,6 @@ map($env, $env) | reduce($env)
 map($env, $env) | reduce(.f64, false)
 map($env, $env) | reduce(0)
 map($env, $env) | sum(1)
-map($env, $env)?.[i]
 map($env, 0) != i .. 0
 map($env, 0) ?? greet
 map($env, 0) ?? list
@@ -25159,7 +25079,6 @@ map($env, 0) | map($env)
 map($env, 0) | map(str)
 map($env, 0) | reduce(ok, i)
 map($env, 0) | sortBy(1.0)
-map($env, 0)?.[i]
 map($env, 1) | any(ok)
 map($env, 1) | count(ok)
 map($env, 1) | groupBy(foo)
@@ -25167,7 +25086,6 @@ map($env, 1) | map(#)
 map($env, 1) | none(ok)
 map($env, 1) | reduce(foo)
 map($env, 1) | sum(#)
-map($env, 1)?.[i]
 map($env, 1.0) ?? f64
 map($env, 1.0) | all(true)
 map($env, 1.0) | filter(ok)
@@ -25175,17 +25093,14 @@ map($env, 1.0) | find(true)
 map($env, 1.0) | groupBy(#)
 map($env, 1.0) | map(str)
 map($env, 1.0) | reduce(ok, add)
-map($env, 1.0)?.[i]
 map($env, add) | groupBy(i)
 map($env, add) | map(false)
 map($env, add) | reduce(1.0)
 map($env, add) | reduce(add, false)
 map($env, add) | sum(f64)
-map($env, add)?.[i]
 map($env, array) | findIndex(ok)
 map($env, array) | map(0)
 map($env, array) | reduce(f64)
-map($env, array)?.[i]
 map($env, f64) | count(ok)
 map($env, f64) | count(true)
 map($env, f64) | groupBy(#)
@@ -25195,22 +25110,18 @@ map($env, f64) | reduce(greet)
 map($env, f64) | sortBy(#)
 map($env, f64) | sortBy(i)
 map($env, f64) | sum(#)
-map($env, f64)?.[i]
-map($env, f64)[:]
 map($env, false) | filter(false)
 map($env, false) | find(#)
 map($env, false) | map(#)
 map($env, false) | map(1.0)
 map($env, false) | map(greet)
 map($env, false) | reduce(str, nil)
-map($env, false)?.[i]
 map($env, foo) == list
 map($env, foo) ?? list
 map($env, foo) ?? str
 map($env, foo) not in [add, f64]
 map($env, foo) | all(.Bar not startsWith .Bar)
 map($env, foo) | findLastIndex(true)
-map($env, foo) | get(1)
 map($env, foo) | groupBy(#)
 map($env, foo) | map($env)
 map($env, foo) | map(f64)
@@ -25222,7 +25133,6 @@ map($env, foo) | reduce(#)
 map($env, foo) | reduce(list)
 map($env, foo) | sortBy(.Bar)
 map($env, foo) | sortBy(str)
-map($env, foo)?.[i]
 map($env, greet) ?? list
 map($env, greet) | all(ok)
 map($env, greet) | findLast(false)
@@ -25230,13 +25140,11 @@ map($env, greet) | map(1)
 map($env, greet) | map(greet)
 map($env, greet) | reduce(list)
 map($env, greet) | sortBy(i)
-map($env, greet)?.[i]
 map($env, i) == list
 map($env, i) | any(true)
 map($env, i) | groupBy(f64)
 map($env, i) | one(ok)
 map($env, i) | sortBy(1.0)
-map($env, i)?.[i]
 map($env, list) ?? str
 map($env, list) | filter(false)
 map($env, list) | map($env)
@@ -25245,19 +25153,16 @@ map($env, list) | map(str)
 map($env, list) | reduce(1.0)
 map($env, list) | reduce(foo)
 map($env, list) | reduce(list)
-map($env, list)?.[i]
 map($env, ok) | findLastIndex(#)
 map($env, ok) | findLastIndex(false)
 map($env, ok) | one(1.0 == nil)
 map($env, ok) | reduce(false)
-map($env, ok)?.[i]
 map($env, str) | find(ok)
 map($env, str) | find(true)
 map($env, str) | findIndex(false)
 map($env, str) | groupBy(#)
 map($env, str) | map(1)
 map($env, str) | sortBy(str)
-map($env, str)?.[i]
 map($env, true) ?? ok
 map($env, true) | any(#)
 map($env, true) | filter(true)
@@ -25267,7 +25172,6 @@ map($env, true) | map(#)
 map($env, true) | map(f64)
 map($env, true) | reduce(foo)
 map($env, true) | sortBy(1.0)
-map($env, true)?.[i]
 map($env.array, #)
 map($env.array, #index - 1.0)
 map($env.array, #index)
@@ -25854,8 +25758,6 @@ map(map(array, list), str)
 map(map(list, 1), list)
 map(map(list, f64), ok)
 map(map(list, str), map($env, 1.0))
-map(max($env), greet)
-map(min($env), f64)
 map(nil ?? $env, str)
 map(nil ?? array, 1.0 != 1.0)
 map(reduce($env, list, $env), foo)
@@ -25885,16 +25787,6 @@ map(true ? array : false, $env?.greet)
 map(uniq(list), ok)
 map(uniq(list), reduce(list, foo))
 map(values($env), #)
-max($env ?? $env)
-max($env ?? 1)
-max($env ?? add)
-max($env ?? array)
-max($env ?? f64)
-max($env ?? foo)
-max($env ?? list)
-max($env ?? nil)
-max($env ?? str)
-max($env ?? true)
 max($env | count(ok))
 max($env | count(true))
 max($env | find(false))
@@ -25903,78 +25795,9 @@ max($env | findLast(false))
 max($env | findLastIndex(false))
 max($env | findLastIndex(ok))
 max($env | findLastIndex(true))
-max($env | map(#index))
 max($env | map(0))
 max($env | map(1))
 max($env | sum(i))
-max($env) != $env?.array
-max($env) != greet
-max($env) == $env?.foo
-max($env) == f64
-max($env) == list
-max($env) == ok
-max($env) ?? i
-max($env) ?? list
-max($env) not in list
-max($env) | all(ok)
-max($env) | count($env.ok)
-max($env) | count(false)
-max($env) | count(true)
-max($env) | find(false)
-max($env) | map(1.0)
-max($env) | map(add)
-max($env) | map(f64)
-max($env) | map(greet)
-max($env) | map(i)
-max($env) | map(str)
-max($env) | none(ok)
-max($env) | sum(0)
-max($env) | sum(1.0)
-max($env).Bar
-max($env).Bar?.i().str
-max($env).Bar?.str
-max($env).String
-max($env).String?.[array]
-max($env).String?.[str]
-max($env).add
-max($env).array
-max($env).f64
-max($env).foo
-max($env).foobar
-max($env).foobar?.[add]
-max($env).foobar?.[greet]
-max($env).foobar?.foo
-max($env).foobar?.str
-max($env).greet
-max($env).greet(foobar)
-max($env).i
-max($env).list
-max($env).not
-max($env).ok
-max($env).str
-max($env)?.$env?.Bar
-max($env)?.$env?.foo(1.0)
-max($env)?.Bar
-max($env)?.String
-max($env)?.String?.[str]
-max($env)?.[str]
-max($env)?.[str]?.[i]
-max($env)?.add
-max($env)?.array
-max($env)?.array not in list
-max($env)?.f64
-max($env)?.foo
-max($env)?.foobar?.[add]
-max($env)?.foobar?.[greet]
-max($env)?.greet
-max($env)?.greet(foobar)
-max($env)?.i
-max($env)?.list
-max($env)?.list?.[f64]
-max($env)?.not
-max($env)?.ok
-max($env)?.str
-max($env)?.str?.[f64]
 max($env.array ?? array)
 max($env.array)
 max($env.array, array)
@@ -26187,8 +26010,6 @@ max(array | get(i))
 max(array | map(1.0))
 max(array | map(i))
 max(array | reduce(#index))
-max(array | reduce($env))
-max(array | reduce($env, 0))
 max(array | reduce(0))
 max(array | reduce(1.0, foo))
 max(array | reduce(i))
@@ -26283,7 +26104,6 @@ max(f64, i)
 max(f64, median(0))
 max(f64, min(1, 1))
 max(false ? foo : 0)
-max(false ? nil : $env)
 max(false ? nil : array)
 max(false ? str : 0)
 max(false ?: foo)
@@ -26386,10 +26206,8 @@ max(i..i)
 max(if false { 0 } else { nil })
 max(if false { array } else { nil })
 max(if false { ok } else { 1.0 })
-max(if ok { $env } else { 1.0 })
 max(if ok { foo } else { 1.0 })
 max(if ok { ok } else { 0 })
-max(if true { $env } else { f64 })
 max(int(0))
 max(int(1))
 max(int(1.0))
@@ -26404,14 +26222,11 @@ max(len(array))
 max(len(list))
 max(len(str))
 max(let foobar = f64; foobar)
-max(let tmp = $env; tmp)
 max(list | count(ok))
 max(list | count(true))
 max(list | filter(false))
 max(list | map(f64))
-max(list | reduce($env))
 max(list) startsWith str and false
-max(map($env, #index))
 max(map($env, 0))
 max(map($env, 1.0))
 max(map($env, array))
@@ -26421,7 +26236,6 @@ max(map(array, array))
 max(map(array, f64))
 max(map(list, 1))
 max(map(list, i))
-max(max($env))
 max(max($env.array))
 max(max($env?.Bar))
 max(max(0))
@@ -26449,7 +26263,6 @@ max(median(array))
 max(median(array, 1))
 max(median(f64))
 max(median(i))
-max(min($env))
 max(min(0))
 max(min(1))
 max(min(1.0))
@@ -26458,7 +26271,6 @@ max(min(1.0, f64, i))
 max(min(array))
 max(min(f64))
 max(min(i))
-max(nil ?? $env)
 max(nil ?? 0)
 max(nil ?? 1)
 max(nil ?? 1.0)
@@ -26475,7 +26287,6 @@ max(ok ?? i)
 max(reduce($env, i, foo))
 max(reduce(array, #))
 max(reduce(array, #acc))
-max(reduce(array, $env))
 max(reduce(array, $env).String)
 max(reduce(array, 1.0))
 max(reduce(list, 0))
@@ -26517,9 +26328,6 @@ max(uniq(array))
 max({foo: $env}?.add)
 max({foo: true, foo: str}?.list)
 mean($env | count(ok))
-mean($env | filter(false))
-mean($env | map(0))
-mean($env | map(1.0))
 mean($env | reduce(1, 1.0))
 mean($env | reduce(1.0, greet))
 mean($env | reduce(array, foo))
@@ -26798,7 +26606,6 @@ mean(f64, sum(array))
 mean(false ? add : 1.0)
 mean(false ? i : f64)
 mean(false ?: 1)
-mean(filter($env, false))
 mean(filter(array, ok))
 mean(find(array, ok))
 mean(findIndex($env, true))
@@ -26896,10 +26703,6 @@ mean(list | reduce(1))
 mean(list | reduce(array))
 mean(list | reduce(f64))
 mean(list | sum(1))
-mean(map($env, 1))
-mean(map($env, 1.0))
-mean(map($env, array))
-mean(map($env, f64))
 mean(map(array, #))
 mean(map(array, 0))
 mean(map(array, f64))
@@ -26982,9 +26785,6 @@ mean(uniq(array))
 median($env | count(false))
 median($env | findIndex(true))
 median($env | findLastIndex(ok))
-median($env | map(1))
-median($env | map(1.0))
-median($env | map(i))
 median($env | reduce(f64, greet))
 median($env | sum(0))
 median($env | sum(1.0))
@@ -27365,10 +27165,6 @@ median(list | map(#index))
 median(list | map(array))
 median(list | reduce(i))
 median(list | sum(0))
-median(map($env, 0))
-median(map($env, 1))
-median(map($env, 1.0))
-median(map($env, f64))
 median(map(array, 1))
 median(map(list, 0))
 median(map(list, 1.0))
@@ -27437,16 +27233,6 @@ median(true ? 0 : ok)
 median(true ? i : foo)
 median(uniq(array))
 median({foo: 1.0}?.foo)
-min($env ?? 0)
-min($env ?? 1)?.ok
-min($env ?? add)
-min($env ?? f64)
-min($env ?? false)
-min($env ?? foo)
-min($env ?? greet)
-min($env ?? i)
-min($env ?? ok)
-min($env ?? true)
 min($env | filter(false))
 min($env | findIndex(false))
 min($env | findIndex(true))
@@ -27459,71 +27245,8 @@ min($env | reduce(array, 1))
 min($env | sum(1.0))
 min($env | sum(f64))
 min($env | sum(i))
-min($env) != array
-min($env) == greet
-min($env) == i
-min($env) == ok
-min($env) ?? uniq($env)
-min($env) matches $env?.foobar
 min($env) not contains $env || true
-min($env) not in list
-min($env) | all(false)
-min($env) | any(false)
-min($env) | count(ok)
-min($env) | map(1)
-min($env) | map(add)
-min($env) | map(f64)
-min($env) | map(false)
-min($env) | map(foo)
-min($env) | map(ok)
-min($env) | reduce(0, 1)
-min($env) | reduce(1.0, $env)
-min($env) | sum(0)
-min($env) | sum(1.0)
-min($env).Bar
-min($env).Bar?.greet()
-min($env).String
-min($env).String?.[greet]
-min($env).add
-min($env).array
-min($env).f64
-min($env).false?.add
-min($env).false?.f64
-min($env).foo
-min($env).foobar
-min($env).foobar?.i(foobar, foobar)
-min($env).foobar?.ok
-min($env).greet
-min($env).i
 min($env).i && false
-min($env).list
-min($env).nil?.foobar
-min($env).ok
-min($env).str
-min($env)?.$env?.Bar()
-min($env)?.Bar
-min($env)?.Bar?.foobar.foo().list
-min($env)?.String
-min($env)?.String?.foo
-min($env)?.[str]
-min($env)?.[str] not startsWith str
-min($env)?.add
-min($env)?.array
-min($env)?.f64
-min($env)?.foo
-min($env)?.foobar
-min($env)?.foobar?.String()
-min($env)?.foobar?.foo.i
-min($env)?.foobar?.list
-min($env)?.foobar?.str
-min($env)?.greet
-min($env)?.greet(foobar)
-min($env)?.i
-min($env)?.list
-min($env)?.not
-min($env)?.ok
-min($env)?.str
-min($env)?.true?.f64(foobar)
 min($env.array)
 min($env.array, sum(array))
 min($env.f64)
@@ -27713,7 +27436,6 @@ min(1.0, 1.0) + i
 min(1.0, 1.0) - 0 < 1.0
 min(1.0, 1.0) ^ f64
 min(1.1)
-min([$env] | reduce(.f64))
 min([0])
 min([1.0])
 min([1])
@@ -27850,7 +27572,6 @@ min(false ? 0 : greet)
 min(false ? 0 : nil)
 min(false ? 1 : 1.0)
 min(false ? array : nil)
-min(false ? foo : $env).i
 min(false ? greet : foo)
 min(false ?: 0)
 min(false ?? 1.0)
@@ -27967,7 +27688,6 @@ min(list | findIndex(false))
 min(list | map(1))
 min(list | map(1.0))
 min(list | map(i))
-min(list | reduce($env))
 min(list | reduce(1))
 min(list | reduce(1.0))
 min(list | reduce(array))
@@ -27981,7 +27701,6 @@ min(map(array, #index))
 min(map(array, 1.0))
 min(map(list, #index))
 min(map(list, f64))
-min(max($env))
 min(max(0))
 min(max(0, 1))
 min(max(0, 1.0, 0))
@@ -28005,7 +27724,6 @@ min(median(1.0))
 min(median(array))
 min(median(f64))
 min(median(i))
-min(min($env))
 min(min(0))
 min(min(1))
 min(min(1.0))
@@ -28014,7 +27732,6 @@ min(min(f64))
 min(min(f64, 1.0))
 min(min(f64, 1.0, 1.0))
 min(min(i))
-min(nil ?? $env)
 min(nil ?? f64)
 min(nil ?? i)
 min(ok ? array : true)
@@ -28023,7 +27740,6 @@ min(ok ?? 1)
 min(ok ?? i)
 min(ok ?? toJSON(list))
 min(reduce(array, #))
-min(reduce(array, $env))?.str
 min(reduce(array, 1.0))
 min(reduce(array, i))
 min(reduce(list, 1.0))
@@ -28600,7 +28316,6 @@ not false || false
 not false || last($env)
 not false || ok
 not false || true
-not max($env).ok
 not nil ?? false
 not nil ?? ok
 not nil ?? true
@@ -28925,7 +28640,6 @@ ok && i >= 1
 ok && i not in array
 ok && list == $env
 ok && list ?? greet
-ok && max($env)
 ok && max(array)
 ok && mean(array)
 ok && median(array)
@@ -29004,7 +28718,6 @@ ok == list ?? greet
 ok == list ?? ok
 ok == max(array)
 ok == mean(array)
-ok == min($env)
 ok == nil != false
 ok == nil != ok
 ok == nil != true
@@ -29622,7 +29335,6 @@ ok not in groupBy(list, i)
 ok not in last($env)
 ok not in list ?? add
 ok not in list ?? greet
-ok not in map($env, false)
 ok not in values($env)
 ok or !false
 ok or !ok
@@ -30193,7 +29905,6 @@ one(list, str < #.Bar)
 one(list, str >= str)
 one(list, true != $env)
 one(list, true ?? foo)
-one(min($env), ok)
 one(sort($env), $env == nil)
 one(sort($env), .String.list(nil))
 one(sort($env), .greet[:.i])
@@ -30895,7 +30606,6 @@ reduce(map(list, #), #)
 reduce(map(list, #), $env?.add)
 reduce(map(list, .Bar), list)
 reduce(map(list, i), #)
-reduce(max($env).array, ok)
 reduce(nil ?? list, add)
 reduce(reduce(array, list), #index)
 reduce(reduce(list, array), i)
@@ -30917,14 +30627,6 @@ repeat(str, i)
 repeat(str, i) not startsWith str
 repeat(str, max(1.0, array))
 repeat(type(1), i)
-reverse($env | filter(false))
-reverse($env | map($env))
-reverse($env | map(0))
-reverse($env | map(1.0))
-reverse($env | map(false))
-reverse($env | map(foo))
-reverse($env | map(ok))
-reverse($env | map(true))
 reverse($env.array)
 reverse($env.list)
 reverse($env?.array)
@@ -31014,7 +30716,6 @@ reverse(array[i:1])
 reverse(concat(array))
 reverse(concat(list))
 reverse(false ? array : list)
-reverse(filter($env, false))
 reverse(filter(list, ok))
 reverse(flatten(array))
 reverse(flatten(list))
@@ -31069,16 +30770,6 @@ reverse(list) | reduce(true)
 reverse(list) | sum(f64)
 reverse(list)?.[i]
 reverse(list[:i])
-reverse(map($env, $env))
-reverse(map($env, 0))
-reverse(map($env, 1.0))
-reverse(map($env, add))
-reverse(map($env, array))
-reverse(map($env, f64))
-reverse(map($env, foo))
-reverse(map($env, list))
-reverse(map($env, str))
-reverse(map($env, true))
 reverse(map(array, #))
 reverse(map(array, #index))
 reverse(map(array, 1.0))
@@ -31148,7 +30839,6 @@ round(0) != i
 round(0) - i
 round(0) / f64
 round(0) < i
-round(0) == max($env)
 round(0) ?? foo
 round(0) ^ f64
 round(0) ^ i
@@ -31794,12 +31484,10 @@ sort(map(array, 1.0))
 sort(map(list, #.Bar))
 sort(map(list, 1.0))
 sort(map(list, str))
-sort(max($env))
 sort(max(array))
 sort(max(array, 1.0))
 sort(mean(array))
 sort(median(array))
-sort(min($env))
 sort(min(array))
 sort(min(array, 1.0))
 sort(nil ?? $env)
@@ -32213,7 +31901,6 @@ str + repeat(str, 1)
 str + str
 str + str != $env
 str + str ?? foo
-str + str in max($env)
 str + str not in $env
 str + string($env)
 str + string(add)
@@ -32327,7 +32014,6 @@ str == foo?.String()
 str == greet(str)
 str == i ?? array
 str == list ?? foo
-str == max($env)
 str == nil == ok
 str == nil ?: list
 str == nil or true || $env
@@ -32783,7 +32469,6 @@ str in foo and array != array
 str in foo and false
 str in foo || $env
 str in list?.[i]
-str in min($env)
 str in sort(array)
 str in {foo: $env?.[Bar]}
 str in {foo: 1}
@@ -33976,7 +33661,6 @@ string(map(list, $env))
 string(map(list, greet))
 string(map(list, list))
 string(map(list, true))
-string(max($env))
 string(max(0))
 string(max(1))
 string(max(1.0))
@@ -33999,7 +33683,6 @@ string(median(f64))
 string(median(i))
 string(median(i, 0))
 string(median(round(i)))
-string(min($env))
 string(min(0))
 string(min(0, 1.0))
 string(min(1))
@@ -34305,7 +33988,6 @@ string({foo: true}?.array)
 sum($env ?? greet, f64)
 sum($env | filter(false))
 sum($env | filter(false), reduce(#, #))
-sum($env | map(#index))
 sum($env | map(0))
 sum($env | map(1))
 sum($env | map(1.0))
@@ -34627,7 +34309,6 @@ sum(list, mean(i))
 sum(list, round(1.0))
 sum(list[i:0])
 sum(list[i:i])
-sum(map($env, #index))
 sum(map($env, $env), i)
 sum(map($env, 0) | sortBy(1.0))
 sum(map($env, 0))
@@ -34647,9 +34328,7 @@ sum(map(list, 1))
 sum(map(list, 1.0))
 sum(map(list, f64))
 sum(map(list, i))
-sum(max($env).array)
 sum(max($env?.[str]))
-sum(min($env), f64)
 sum(nil ?? array)
 sum(ok ? array : false)
 sum(ok ? array : foo)
@@ -35523,7 +35202,6 @@ toJSON(median(array, array))
 toJSON(median(f64))
 toJSON(median(f64, i))
 toJSON(median(i))
-toJSON(min($env)?.list)
 toJSON(min(0))
 toJSON(min(1))
 toJSON(min(1, f64))
@@ -35886,8 +35564,6 @@ toPairs(list | groupBy(#))
 toPairs(list | groupBy(false))
 toPairs(list | groupBy(foo))
 toPairs(list | groupBy(i))
-toPairs(max($env))
-toPairs(min($env))
 toPairs(nil ?? $env)
 toPairs(reduce(array, $env))
 toPairs({foo: $env, foo: true})
@@ -37675,7 +37351,6 @@ type(map(list, #))
 type(map(list, 1.0))
 type(map(list, false))
 type(map(list, foo))
-type(max($env))
 type(max(0))
 type(max(0, array))
 type(max(0, f64))
@@ -37700,7 +37375,6 @@ type(median(f64))
 type(median(f64, 1.0))
 type(median(i))
 type(median(min(f64)))
-type(min($env))
 type(min(0))
 type(min(1))
 type(min(1.0))
@@ -38024,15 +37698,6 @@ type({foo: str, foo: str})
 type({foo: str})
 type({foo: toJSON(foo)})
 type({foo: true})
-uniq($env | filter(false))
-uniq($env | map(#index))
-uniq($env | map(0))
-uniq($env | map(1.0))
-uniq($env | map(add))
-uniq($env | map(f64))
-uniq($env | map(foo))
-uniq($env | map(ok))
-uniq($env | map(str))
 uniq($env | reduce(array, foo))
 uniq($env.array)
 uniq($env.list)
@@ -38178,14 +37843,6 @@ uniq(list)[$env.i:]
 uniq(list[1:])
 uniq(list[:i])
 uniq(list[i:])
-uniq(map($env, 1.0))
-uniq(map($env, array))
-uniq(map($env, foo))
-uniq(map($env, i))
-uniq(map($env, list))
-uniq(map($env, ok))
-uniq(map($env, str))
-uniq(map($env, true))
 uniq(map(array, #))
 uniq(map(array, 1.0))
 uniq(map(array, array))
@@ -38356,8 +38013,6 @@ values(if ok { $env } else { str })
 values(list | groupBy(#))
 values(list | groupBy(.Bar))
 values(list | groupBy(false))
-values(max($env))
-values(min($env))
 values(nil ?? $env)
 values(ok ? $env : nil)
 values(reduce(array, $env))
@@ -41727,7 +41382,6 @@ values({foo: true})
 {foo: greet}?.ok?.list
 {foo: greet}?.str
 {foo: groupBy(array, #)}
-{foo: groupBy(array, 0), foo: min($env)}
 {foo: groupBy(array, 1.0)}
 {foo: groupBy(array, f64)}
 {foo: groupBy(array, false)}
@@ -42339,9 +41993,6 @@ values({foo: true})
 {foo: map(list, foo)}
 {foo: map(list, greet)}
 {foo: map(list, ok)}
-{foo: max($env), foo: array}
-{foo: max($env)}
-{foo: max($env)}.i
 {foo: max(0)}
 {foo: max(1)}
 {foo: max(1.0)}
@@ -42375,8 +42026,6 @@ values({foo: true})
 {foo: median(flatten(array))}
 {foo: median(i)}
 {foo: median(i, array)}.Bar
-{foo: min($env)?.String}
-{foo: min($env)}
 {foo: min(0)}
 {foo: min(1), foo: ok}
 {foo: min(1)}

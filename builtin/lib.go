@@ -233,12 +233,47 @@ func String(arg any) any {
 	return fmt.Sprintf("%v", arg)
 }
 
+// aggregateMapValues unwraps a map argument of an aggregation builtin into a
+// slice of its values. It reports whether the argument was a map. Only maps
+// with string keys can be aggregated.
+func aggregateMapValues(arg any) (any, bool, error) {
+	if m, ok := arg.(map[string]any); ok {
+		values := make([]any, 0, len(m))
+		for _, v := range m {
+			values = append(values, v)
+		}
+		return values, true, nil
+	}
+	rv := reflect.ValueOf(arg)
+	if rv.Kind() != reflect.Map {
+		return nil, false, nil
+	}
+	values := make([]any, 0, rv.Len())
+	iter := rv.MapRange()
+	for iter.Next() {
+		k := iter.Key()
+		if k.Kind() == reflect.Interface {
+			k = k.Elem()
+		}
+		if k.Kind() != reflect.String {
+			return nil, true, fmt.Errorf("cannot aggregate over map with non-string keys (%T)", arg)
+		}
+		values = append(values, iter.Value().Interface())
+	}
+	return values, true, nil
+}
+
 func minMax(name string, fn func(any, any) bool, depth int, args ...any) (any, error) {
 	if depth > MaxDepth {
 		return nil, ErrorMaxDepth
 	}
 	var val any
 	for _, arg := range args {
+		if values, ok, err := aggregateMapValues(arg); err != nil {
+			return nil, err
+		} else if ok {
+			arg = values
+		}
 		// Fast paths for common typed slices - avoid reflection and allocations
 		switch arr := arg.(type) {
 		case []int:
@@ -353,6 +388,11 @@ func mean(depth int, args ...any) (int, float64, error) {
 	var count int
 
 	for _, arg := range args {
+		if values, ok, err := aggregateMapValues(arg); err != nil {
+			return 0, 0, err
+		} else if ok {
+			arg = values
+		}
 		// Fast paths for common typed slices - avoid reflection and allocations
 		switch arr := arg.(type) {
 		case []int:
@@ -449,6 +489,11 @@ func median(depth int, args ...any) ([]float64, error) {
 	var values []float64
 
 	for _, arg := range args {
+		if mapValues, ok, err := aggregateMapValues(arg); err != nil {
+			return nil, err
+		} else if ok {
+			arg = mapValues
+		}
 		// Fast paths for common typed slices - avoid reflection and allocations
 		switch arr := arg.(type) {
 		case []int:
