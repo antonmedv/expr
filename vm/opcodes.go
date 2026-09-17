@@ -86,5 +86,8 @@ const (
 	OpBegin
 	OpAnd
 	OpOr
+	OpPointerIndex
+	OpMarkKey
+	OpCollect
 	OpEnd // This opcode must be at the end of this list.
 )

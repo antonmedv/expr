@@ -909,6 +909,7 @@ func (c *compiler) BuiltinNode(node *ast.BuiltinNode) {
 			c.compile(node.Arguments[1])
 			c.emitCond(func() {
 				c.emit(OpIncrementCount)
+				c.emit(OpMarkKey)
 				if node.Map != nil {
 					c.compile(node.Map)
 				} else {
@@ -917,8 +918,8 @@ func (c *compiler) BuiltinNode(node *ast.BuiltinNode) {
 			})
 		})
 		c.emit(OpGetCount)
+		c.emit(OpCollect)
 		c.emit(OpEnd)
-		c.emit(OpArray)
 		return
 
 	case "map":
@@ -926,11 +927,12 @@ func (c *compiler) BuiltinNode(node *ast.BuiltinNode) {
 		c.derefInNeeded(node.Arguments[0])
 		c.emit(OpBegin)
 		c.emitLoop(func() {
+			c.emit(OpMarkKey)
 			c.compile(node.Arguments[1])
 		})
 		c.emit(OpGetLen)
+		c.emit(OpCollect)
 		c.emit(OpEnd)
-		c.emit(OpArray)
 		return
 
 	case "count":
@@ -1230,7 +1232,7 @@ func (c *compiler) PredicateNode(node *ast.PredicateNode) {
 func (c *compiler) PointerNode(node *ast.PointerNode) {
 	switch node.Name {
 	case "index":
-		c.emit(OpGetIndex)
+		c.emit(OpPointerIndex)
 	case "acc":
 		c.emit(OpGetAcc)
 	case "":

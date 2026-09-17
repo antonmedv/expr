@@ -477,7 +477,7 @@ cannot use string as argument (type int) to call Variadic  (1:13)
 `,
 		},
 		{`count(1, {#})`, `
-builtin count takes only array (got int) (1:7)
+builtin count takes only array or map with string keys (got int) (1:7)
  | count(1, {#})
  | ......^
 `,
@@ -507,7 +507,7 @@ predicate should return boolean (got string) (1:18)
 `,
 		},
 		{`map(1, {2})`, `
-builtin map takes only array (got int) (1:5)
+builtin map takes only array or map with string keys (got int) (1:5)
  | map(1, {2})
  | ....^
 `,
@@ -549,13 +549,13 @@ invalid argument for len (type int) (1:1)
 `,
 		},
 		{`any(42, {#})`, `
-builtin any takes only array (got int) (1:5)
+builtin any takes only array or map with string keys (got int) (1:5)
  | any(42, {#})
  | ....^
 `,
 		},
 		{`filter(42, {#})`, `
-builtin filter takes only array (got int) (1:8)
+builtin filter takes only array or map with string keys (got int) (1:8)
  | filter(42, {#})
  | .......^
 `,
@@ -1146,6 +1146,9 @@ func TestCheck_types(t *testing.T) {
 		"arr": types.Array(types.Map{
 			"value": types.String,
 		}),
+		"prices": types.Map{
+			types.Extra: types.Int,
+		},
 		types.Extra: types.Any,
 	}
 
@@ -1164,6 +1167,11 @@ func TestCheck_types(t *testing.T) {
 		{`[foo] | map(.bar) | filter(.baz)`, `predicate should return boolean (got string)`},
 		{`arr | filter(.value > 0)`, `invalid operation: > (mismatched types string and int)`},
 		{`arr | filter(.value contains "a") | filter(.value == 0)`, `invalid operation: == (mismatched types string and int)`},
+		{`prices | filter(# > 0)`, noerr},
+		{`prices | filter(# > 0) | sum()`, noerr},
+		{`prices | map(# * 2)`, noerr},
+		{`prices | filter(#index startsWith "a")`, noerr},
+		{`prices | filter(# + "x" > 0)`, `invalid operation: + (mismatched types int and string)`},
 	}
 
 	c := new(checker.Checker)

@@ -701,16 +701,44 @@ func (v *Checker) callNode(node *ast.CallNode) Nature {
 	return v.error(node, "%s is not callable", nt.String())
 }
 
+// isIterable reports whether a collection nature can be iterated by the
+// predicate builtins: an array, or a map with string keys.
+func (v *Checker) isIterable(collection Nature) bool {
+	if collection.IsArray() {
+		return true
+	}
+	if collection.IsMap() {
+		key := collection.Key(&v.config.NtCache)
+		if key.Kind == reflect.String {
+			return true
+		}
+		return key.Kind == reflect.Interface && key.Type.NumMethod() == 0
+	}
+	return false
+}
+
+// indexNature returns the nature of the #index pointer for a collection:
+// the key nature for maps, int for arrays, unknown for unknown collections.
+func (v *Checker) indexNature(collection Nature) Nature {
+	if collection.IsUnknown(&v.config.NtCache) {
+		return Nature{}
+	}
+	if collection.IsMap() {
+		return collection.Key(&v.config.NtCache)
+	}
+	return v.config.NtCache.FromType(intType)
+}
+
 func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	switch node.Name {
 	case "all", "none", "any", "one":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -729,11 +757,11 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "filter":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -748,6 +776,9 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			if collection.IsUnknown(&v.config.NtCache) {
 				return v.config.NtCache.FromType(arrayType)
 			}
+			if collection.IsMap() {
+				return collection
+			}
 			collection = collection.Elem(&v.config.NtCache)
 			return collection.MakeArrayOf(&v.config.NtCache)
 		}
@@ -756,11 +787,11 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "map":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection, varScope{"index", v.config.NtCache.FromType(intType)})
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -768,6 +799,13 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			predicate.NumOut() == 1 &&
 			predicate.NumIn() == 1 && predicate.IsFirstArgUnknown(&v.config.NtCache) {
 
+			if collection.IsMap() {
+				elemType := anyType
+				if predicate.Ref != nil && predicate.Ref.Type != nil {
+					elemType = predicate.Ref.Type
+				}
+				return v.config.NtCache.FromType(reflect.MapOf(collection.Type.Key(), elemType))
+			}
 			return predicate.Ref.MakeArrayOf(&v.config.NtCache)
 		}
 		return v.error(node.Arguments[1], "predicate should has one input and one output param")
@@ -775,15 +813,15 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "count":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
 		if len(node.Arguments) == 1 {
 			return v.config.NtCache.FromType(intType)
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -802,12 +840,12 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "sum":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
 		if len(node.Arguments) == 2 {
-			v.begin(collection)
+			v.begin(collection, varScope{"index", v.indexNature(collection)})
 			predicate := v.visit(node.Arguments[1])
 			v.end()
 
@@ -826,11 +864,11 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "find", "findLast":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -856,7 +894,7 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -879,7 +917,7 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -902,7 +940,7 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection)
+		v.begin(collection, varScope{"index", v.indexNature(collection)})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -924,11 +962,11 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 	case "reduce":
 		collection := v.visit(node.Arguments[0])
 		collection = collection.Deref(&v.config.NtCache)
-		if !collection.IsArray() && !collection.IsUnknown(&v.config.NtCache) {
-			return v.error(node.Arguments[0], "builtin %v takes only array (got %v)", node.Name, collection.String())
+		if !v.isIterable(collection) && !collection.IsUnknown(&v.config.NtCache) {
+			return v.error(node.Arguments[0], "builtin %v takes only array or map with string keys (got %v)", node.Name, collection.String())
 		}
 
-		v.begin(collection, varScope{"index", v.config.NtCache.FromType(intType)}, varScope{"acc", Nature{}})
+		v.begin(collection, varScope{"index", v.indexNature(collection)}, varScope{"acc", Nature{}})
 		predicate := v.visit(node.Arguments[1])
 		v.end()
 
@@ -1241,7 +1279,7 @@ func (v *Checker) pointerNode(node *ast.PointerNode) Nature {
 			return Nature{}
 		}
 		switch scope.collection.Kind {
-		case reflect.Array, reflect.Slice:
+		case reflect.Array, reflect.Slice, reflect.Map:
 			return scope.collection.Elem(&v.config.NtCache)
 		}
 		return v.error(node, "cannot use %v as array", scope)

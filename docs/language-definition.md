@@ -334,6 +334,19 @@ Braces `{` `}` can be omitted:
 filter(tweets, len(.Content) > 240)
 ```
 
+The collection can also be a map with string keys. Entries are visited in
+ascending key order; `#` holds the entry's value and `#index` holds its key
+(for arrays, `#index` keeps holding the element's position).
+
+```expr
+events | groupBy(.Author) | filter(len(#) > 1)
+```
+
+`filter` and `map` applied to a map return a map, keeping the original keys;
+the other predicate builtins on this page return the same shape they return
+for arrays. `findIndex`, `findLastIndex`, `groupBy` and `sortBy` still only
+accept arrays, since positions and reordering don't translate to map entries.
+
 :::tip
 In nested predicates, to access the outer variable, use [variables](#variables).
 
@@ -763,7 +776,7 @@ Following variables are available in the predicate:
 
 - `#` - the current element
 - `#acc` - the accumulator
-- `#index` - the index of the current element
+- `#index` - the index of the current element (or the key, when reducing a map)
 
 ```expr
 reduce(1..9, #acc + #)
@@ -772,7 +785,8 @@ reduce(1..9, #acc + #, 0)
 
 ### sum(array[, predicate]) {#sum}
 
-Returns the sum of all numbers in the array.
+Returns the sum of all numbers in the array. `array` may also be a map with
+string keys, in which case the values are summed.
 
 ```expr
 sum([1, 2, 3]) == 6
@@ -795,7 +809,8 @@ sum(map(accounts, .Balance))
 
 ### mean(array) {#mean}
 
-Returns the average of all numbers in the array.
+Returns the average of all numbers in the array. `array` may also be a map
+with string keys, in which case the values are averaged.
 
 ```expr
 mean([1, 2, 3]) == 2.0
@@ -803,7 +818,8 @@ mean([1, 2, 3]) == 2.0
 
 ### median(array) {#median}
 
-Returns the median of all numbers in the array.
+Returns the median of all numbers in the array. `array` may also be a map
+with string keys, in which case the median is taken over the values.
 
 ```expr
 median([1, 2, 3]) == 2.0
