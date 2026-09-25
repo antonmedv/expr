@@ -160,6 +160,25 @@ func findStructField(v reflect.Value, fieldName string) (reflect.Value, reflect.
 	return reflect.Value{}, reflect.StructField{}, false
 }
 
+// structFieldByExprName looks up a field the same way the checker resolves
+// `foo.name` at compile time: once a field carries an `expr` tag, only that
+// tag's value (or "-" to hide the field) names it, and its original Go name
+// no longer applies. This keeps the `in` operator's dynamic string-based
+// struct field lookup consistent with static field access.
+func structFieldByExprName(t reflect.Type, name string) (reflect.StructField, bool) {
+	field, ok := t.FieldByNameFunc(func(candidate string) bool {
+		sf, _ := t.FieldByName(candidate)
+		if tag := sf.Tag.Get("expr"); tag != "" {
+			return tag == name
+		}
+		return candidate == name
+	})
+	if ok && field.IsExported() {
+		return field, true
+	}
+	return reflect.StructField{}, false
+}
+
 func fetchFromEmbeddedInterfaces(v reflect.Value, fieldName string) (any, bool) {
 	t := v.Type()
 	for i := 0; i < t.NumField(); i++ {
@@ -286,15 +305,8 @@ func In(needle any, array any) bool {
 		if !n.IsValid() || n.Kind() != reflect.String {
 			panic(fmt.Sprintf("cannot use %T as field name of %T", needle, array))
 		}
-		field, ok := v.Type().FieldByName(n.String())
-		if !ok || !field.IsExported() || field.Tag.Get("expr") == "-" {
-			return false
-		}
-		value := v.FieldByIndex(field.Index)
-		if value.IsValid() {
-			return true
-		}
-		return false
+		_, ok := structFieldByExprName(v.Type(), n.String())
+		return ok
 
 	case reflect.Ptr:
 		value := v.Elem()

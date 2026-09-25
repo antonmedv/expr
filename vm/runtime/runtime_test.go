@@ -61,6 +61,10 @@ type PlainStruct struct {
 	Title string
 }
 
+type TaggedOuter struct {
+	Inner map[string]struct{} `expr:"bar"`
+}
+
 func TestFetchFromEmbeddedInterfaces(t *testing.T) {
 	tests := []struct {
 		name      string
@@ -168,6 +172,46 @@ func TestFetchFromEmbeddedInterfaces(t *testing.T) {
 			if tt.ok {
 				require.Equal(t, tt.want, got)
 			}
+		})
+	}
+}
+
+func TestIn_StructRespectsFieldTag(t *testing.T) {
+	tests := []struct {
+		name   string
+		input  any
+		needle string
+		want   bool
+	}{
+		{
+			name:   "tagged name is found",
+			input:  TaggedOuter{},
+			needle: "bar",
+			want:   true,
+		},
+		{
+			name:   "original Go field name is shadowed by the tag",
+			input:  TaggedOuter{},
+			needle: "Inner",
+			want:   false,
+		},
+		{
+			name:   "field skipped via expr:\"-\" tag is not found",
+			input:  ConcreteWithSkippedField{Title: "hidden"},
+			needle: "Title",
+			want:   false,
+		},
+		{
+			name:   "plain untagged field is found by its Go name",
+			input:  PlainStruct{Title: "hello"},
+			needle: "Title",
+			want:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			require.Equal(t, tt.want, In(tt.needle, tt.input))
 		})
 	}
 }
