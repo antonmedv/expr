@@ -321,12 +321,12 @@ func TestBuiltin_types(t *testing.T) {
 		input string
 		want  reflect.Kind
 	}{
-		{`get(ArrayOfString, 0)`, reflect.String},
-		{`get(ArrayOfInt, 0)`, reflect.Int},
-		{`first(ArrayOfString)`, reflect.String},
-		{`first(ArrayOfInt)`, reflect.Int},
-		{`last(ArrayOfString)`, reflect.String},
-		{`last(ArrayOfInt)`, reflect.Int},
+		{`get(ArrayOfString, 0)`, reflect.Interface}, // nilable
+		{`get(ArrayOfInt, 0)`, reflect.Interface},
+		{`first(ArrayOfString)`, reflect.Interface},
+		{`first(ArrayOfInt)`, reflect.Interface},
+		{`last(ArrayOfString)`, reflect.Interface},
+		{`last(ArrayOfInt)`, reflect.Interface},
 		{`get($env, 'str')`, reflect.String},
 		{`get($env, 'num')`, reflect.Int},
 		{`get($env, 'ArrayOfString')`, reflect.Slice},

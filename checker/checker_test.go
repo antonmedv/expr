@@ -1183,3 +1183,22 @@ func TestCheck_types(t *testing.T) {
 		})
 	}
 }
+
+func TestCheck_NilableBuiltinsWarnOnAny(t *testing.T) {
+	env := map[string]any{
+		"ints":  []int{1, 2, 3},
+		"empty": []int{},
+	}
+	for _, src := range []string{
+		"find(ints, # > 5)",
+		"findIndex(ints, # > 5)",
+		"first(empty)",
+		"get(ints, 9)",
+	} {
+		t.Run(src, func(t *testing.T) {
+			_, err := expr.Compile(src, expr.Env(env), expr.AsInt(), expr.WarnOnAny())
+			require.Error(t, err)
+			require.Contains(t, err.Error(), "expected int")
+		})
+	}
+}

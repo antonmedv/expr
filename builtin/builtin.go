@@ -611,7 +611,8 @@ var Builtins = []*Function{
 			case reflect.Interface:
 				return anyType, nil
 			case reflect.Slice, reflect.Array:
-				return args[0].Elem(), nil
+				// Empty collection returns nil; type as any so WarnOnAny catches it.
+				return anyType, nil
 			}
 			return anyType, fmt.Errorf("cannot get first element from %s", args[0])
 		},
@@ -634,7 +635,8 @@ var Builtins = []*Function{
 			case reflect.Interface:
 				return anyType, nil
 			case reflect.Slice, reflect.Array:
-				return args[0].Elem(), nil
+				// Empty collection returns nil; type as any so WarnOnAny catches it.
+				return anyType, nil
 			}
 			return anyType, fmt.Errorf("cannot get last element from %s", args[0])
 		},

@@ -842,10 +842,8 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			if !predicateOut.IsBool() && !predicateOut.IsUnknown(&v.config.NtCache) {
 				return v.error(node.Arguments[1], "predicate should return boolean (got %s)", predicateOut.String())
 			}
-			if collection.IsUnknown(&v.config.NtCache) {
-				return Nature{}
-			}
-			return collection.Elem(&v.config.NtCache)
+			// May return nil when nothing matches; type as any so WarnOnAny catches it.
+			return v.config.NtCache.FromType(anyType)
 		}
 		return v.error(node.Arguments[1], "predicate should has one input and one output param")
 
@@ -868,7 +866,8 @@ func (v *Checker) builtinNode(node *ast.BuiltinNode) Nature {
 			if !predicateOut.IsBool() && !predicateOut.IsUnknown(&v.config.NtCache) {
 				return v.error(node.Arguments[1], "predicate should return boolean (got %s)", predicateOut.String())
 			}
-			return v.config.NtCache.FromType(intType)
+			// Returns nil (not -1) when nothing matches; type as any so WarnOnAny catches it.
+			return v.config.NtCache.FromType(anyType)
 		}
 		return v.error(node.Arguments[1], "predicate should has one input and one output param")
 
@@ -992,12 +991,14 @@ func (v *Checker) checkBuiltinGet(node *ast.BuiltinNode) Nature {
 		if !prop.IsInteger && !prop.IsUnknown(&v.config.NtCache) {
 			return v.error(node.Arguments[1], "non-integer slice index %s", prop.String())
 		}
-		return base.Elem(&v.config.NtCache)
+		// Out-of-range get returns nil; type as any so WarnOnAny catches it.
+		return v.config.NtCache.FromType(anyType)
 	case reflect.Map:
 		if !prop.AssignableTo(base.Key(&v.config.NtCache)) && !prop.IsUnknown(&v.config.NtCache) {
 			return v.error(node.Arguments[1], "cannot use %s to get an element from %s", prop.String(), base.String())
 		}
-		return base.Elem(&v.config.NtCache)
+		// Missing key returns nil; type as any so WarnOnAny catches it.
+		return v.config.NtCache.FromType(anyType)
 	}
 	return v.error(node.Arguments[0], "type %v does not support indexing", base.String())
 }
