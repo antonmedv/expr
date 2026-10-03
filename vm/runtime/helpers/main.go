@@ -71,6 +71,24 @@ func cases(op string, xs ...[]string) string {
 		echo(`case %v:`, a)
 		echo(`switch y := b.(type) {`)
 		for _, b := range types {
+			echo(`case %v:`, b)
+			if isComparison(op) && !isFloat(a) && !isFloat(b) {
+				echo(`return %s`, integerComparison(op, a, b))
+				continue
+			}
+			if isComparison(op) && isFloat(a) != isFloat(b) {
+				integer, x, y, sign := a, "x", "y", ""
+				if isFloat(a) {
+					integer, x, y, sign = b, "y", "x", "-"
+				}
+				typ, fn := "int64", "compareIntFloat"
+				if strings.HasPrefix(integer, "uint") {
+					typ, fn = "uint64", "compareUintFloat"
+				}
+				echo(`comparison, ordered := %s(%s(%s), float64(%s))`, fn, typ, x, y)
+				echo(`return ordered && %scomparison %s 0`, sign, op)
+				continue
+			}
 			t := "int"
 			if isDuration(a) || isDuration(b) {
 				t = "time.Duration"
@@ -78,7 +96,6 @@ func cases(op string, xs ...[]string) string {
 			if isFloat(a) || isFloat(b) {
 				t = "float64"
 			}
-			echo(`case %v:`, b)
 			if op == "/" {
 				echo(`return float64(x) / float64(y)`)
 			} else {
@@ -131,6 +148,36 @@ func arrayEqualCases(xs ...[]string) string {
 
 func isFloat(t string) bool {
 	return strings.HasPrefix(t, "float")
+}
+
+func isComparison(op string) bool {
+	switch op {
+	case "==", "<", ">", "<=", ">=":
+		return true
+	default:
+		return false
+	}
+}
+
+func integerComparison(op, a, b string) string {
+	aUnsigned, bUnsigned := strings.HasPrefix(a, "uint"), strings.HasPrefix(b, "uint")
+	if !aUnsigned && !bUnsigned {
+		return fmt.Sprintf("int64(x) %s int64(y)", op)
+	}
+	comparison := fmt.Sprintf("uint64(x) %s uint64(y)", op)
+	if aUnsigned && bUnsigned {
+		return comparison
+	}
+	if aUnsigned {
+		if op == ">" || op == ">=" {
+			return "y < 0 || " + comparison
+		}
+		return "y >= 0 && " + comparison
+	}
+	if op == "<" || op == "<=" {
+		return "x < 0 || " + comparison
+	}
+	return "x >= 0 && " + comparison
 }
 
 func isDuration(t string) bool {
