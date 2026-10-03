@@ -13,295 +13,325 @@ func Equal(a, b interface{}) bool {
 	case uint:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int8:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int16:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int32:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int64:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case uint8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int8:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int16:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int32:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int64:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case uint16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int8:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int16:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int32:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int64:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case uint32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int8:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int16:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int32:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int64:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case uint64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int8:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int16:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int32:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case int64:
-			return int(x) == int(y)
+			return y >= 0 && uint64(x) == uint64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case int:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int8:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int16:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int32:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int64:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case int8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int8:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int16:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int32:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int64:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case int16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int8:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int16:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int32:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int64:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case int32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int8:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int16:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int32:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int64:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case int64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint8:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint16:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint32:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case uint64:
-			return int(x) == int(y)
+			return x >= 0 && uint64(x) == uint64(y)
 		case int:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int8:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int16:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int32:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case int64:
-			return int(x) == int(y)
+			return int64(x) == int64(y)
 		case float32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		case float64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison == 0
 		}
 	case float32:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint8:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint16:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case int:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int8:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int16:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case float32:
 			return float64(x) == float64(y)
 		case float64:
@@ -310,25 +340,35 @@ func Equal(a, b interface{}) bool {
 	case float64:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint8:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint16:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case uint64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison == 0
 		case int:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int8:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int16:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int32:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case int64:
-			return float64(x) == float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison == 0
 		case float32:
 			return float64(x) == float64(y)
 		case float64:
@@ -704,295 +744,325 @@ func Less(a, b interface{}) bool {
 	case uint:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int8:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int16:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int32:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int64:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case uint8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int8:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int16:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int32:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int64:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case uint16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int8:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int16:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int32:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int64:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case uint32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int8:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int16:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int32:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int64:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case uint64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int8:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int16:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int32:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case int64:
-			return int(x) < int(y)
+			return y >= 0 && uint64(x) < uint64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case int:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int8:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int16:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int32:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int64:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case int8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int8:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int16:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int32:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int64:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case int16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int8:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int16:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int32:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int64:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case int32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int8:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int16:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int32:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int64:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case int64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint8:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint16:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint32:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case uint64:
-			return int(x) < int(y)
+			return x < 0 || uint64(x) < uint64(y)
 		case int:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int8:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int16:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int32:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case int64:
-			return int(x) < int(y)
+			return int64(x) < int64(y)
 		case float32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		case float64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison < 0
 		}
 	case float32:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint8:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint16:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case int:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int8:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int16:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case float32:
 			return float64(x) < float64(y)
 		case float64:
@@ -1001,25 +1071,35 @@ func Less(a, b interface{}) bool {
 	case float64:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint8:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint16:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case uint64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison < 0
 		case int:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int8:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int16:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int32:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case int64:
-			return float64(x) < float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison < 0
 		case float32:
 			return float64(x) < float64(y)
 		case float64:
@@ -1049,295 +1129,325 @@ func More(a, b interface{}) bool {
 	case uint:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int8:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int16:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int32:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int64:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case uint8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int8:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int16:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int32:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int64:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case uint16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int8:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int16:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int32:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int64:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case uint32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int8:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int16:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int32:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int64:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case uint64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int8:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int16:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int32:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case int64:
-			return int(x) > int(y)
+			return y < 0 || uint64(x) > uint64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case int:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int8:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int16:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int32:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int64:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case int8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int8:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int16:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int32:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int64:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case int16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int8:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int16:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int32:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int64:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case int32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int8:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int16:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int32:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int64:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case int64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint8:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint16:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint32:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case uint64:
-			return int(x) > int(y)
+			return x >= 0 && uint64(x) > uint64(y)
 		case int:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int8:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int16:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int32:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case int64:
-			return int(x) > int(y)
+			return int64(x) > int64(y)
 		case float32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		case float64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison > 0
 		}
 	case float32:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint8:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint16:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case int:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int8:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int16:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case float32:
 			return float64(x) > float64(y)
 		case float64:
@@ -1346,25 +1456,35 @@ func More(a, b interface{}) bool {
 	case float64:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint8:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint16:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case uint64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison > 0
 		case int:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int8:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int16:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int32:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case int64:
-			return float64(x) > float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison > 0
 		case float32:
 			return float64(x) > float64(y)
 		case float64:
@@ -1394,295 +1514,325 @@ func LessOrEqual(a, b interface{}) bool {
 	case uint:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int8:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int16:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int32:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int64:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case uint8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int8:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int16:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int32:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int64:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case uint16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int8:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int16:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int32:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int64:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case uint32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int8:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int16:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int32:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int64:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case uint64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int8:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int16:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int32:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case int64:
-			return int(x) <= int(y)
+			return y >= 0 && uint64(x) <= uint64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case int:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int8:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int16:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int32:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int64:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case int8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int8:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int16:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int32:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int64:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case int16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int8:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int16:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int32:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int64:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case int32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int8:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int16:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int32:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int64:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case int64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint8:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint16:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint32:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case uint64:
-			return int(x) <= int(y)
+			return x < 0 || uint64(x) <= uint64(y)
 		case int:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int8:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int16:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int32:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case int64:
-			return int(x) <= int(y)
+			return int64(x) <= int64(y)
 		case float32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		case float64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison <= 0
 		}
 	case float32:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint8:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint16:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int8:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int16:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case float32:
 			return float64(x) <= float64(y)
 		case float64:
@@ -1691,25 +1841,35 @@ func LessOrEqual(a, b interface{}) bool {
 	case float64:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint8:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint16:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case uint64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int8:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int16:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int32:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case int64:
-			return float64(x) <= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison <= 0
 		case float32:
 			return float64(x) <= float64(y)
 		case float64:
@@ -1739,295 +1899,325 @@ func MoreOrEqual(a, b interface{}) bool {
 	case uint:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int8:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int16:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int32:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int64:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case uint8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int8:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int16:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int32:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int64:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case uint16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int8:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int16:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int32:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int64:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case uint32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int8:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int16:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int32:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int64:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case uint64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int8:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int16:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int32:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case int64:
-			return int(x) >= int(y)
+			return y < 0 || uint64(x) >= uint64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case int:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int8:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int16:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int32:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int64:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case int8:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int8:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int16:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int32:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int64:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case int16:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int8:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int16:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int32:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int64:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case int32:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int8:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int16:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int32:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int64:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case int64:
 		switch y := b.(type) {
 		case uint:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint8:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint16:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint32:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case uint64:
-			return int(x) >= int(y)
+			return x >= 0 && uint64(x) >= uint64(y)
 		case int:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int8:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int16:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int32:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case int64:
-			return int(x) >= int(y)
+			return int64(x) >= int64(y)
 		case float32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		case float64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(x), float64(y))
+			return ordered && comparison >= 0
 		}
 	case float32:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint8:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint16:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int8:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int16:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case float32:
 			return float64(x) >= float64(y)
 		case float64:
@@ -2036,25 +2226,35 @@ func MoreOrEqual(a, b interface{}) bool {
 	case float64:
 		switch y := b.(type) {
 		case uint:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint8:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint16:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case uint64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareUintFloat(uint64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int8:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int16:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int32:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case int64:
-			return float64(x) >= float64(y)
+			comparison, ordered := compareIntFloat(int64(y), float64(x))
+			return ordered && -comparison >= 0
 		case float32:
 			return float64(x) >= float64(y)
 		case float64:
