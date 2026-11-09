@@ -6,9 +6,7 @@ const exclude = [
   'checker/mock', // Mocks only used for testing.
   'vm/func_types', // Generated files.
   'vm/runtime/helpers', // Generated files.
-  'internal/difflib', // Test dependency. This is vendored dependency, and ideally we also have good tests for it.
   'internal/spew', // Test dependency.
-  'internal/testify', // Test dependency.
   'patcher/value', // Contains a lot of repeating code. Ideally we should have a test for it.
   'pro', // Expr Pro is not a part of the main codebase.
 ]

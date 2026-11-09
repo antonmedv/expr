@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/expr-lang/expr"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/require"
 )
 
 var updateFlag = flag.Bool("update", false, "Drop failing lines from examples.txt")

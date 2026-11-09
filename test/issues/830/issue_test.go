@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/expr-lang/expr"
-	"github.com/expr-lang/expr/internal/testify/assert"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func TestIssue830(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/require"
 )
 
 type Namer interface {

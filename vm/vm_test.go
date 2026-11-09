@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/expr-lang/expr/file"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/require"
 
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/checker"
