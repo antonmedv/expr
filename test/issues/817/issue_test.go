@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/expr-lang/expr"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/require"
 )
 
 func TestIssue817_1(t *testing.T) {

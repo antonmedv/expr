@@ -5,8 +5,8 @@ import (
 
 	"github.com/expr-lang/expr"
 	. "github.com/expr-lang/expr/ast"
-	"github.com/expr-lang/expr/internal/testify/assert"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"github.com/expr-lang/expr/optimizer"
 	"github.com/expr-lang/expr/parser"
 	"github.com/expr-lang/expr/vm"

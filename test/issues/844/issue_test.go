@@ -7,7 +7,7 @@ import (
 	"github.com/expr-lang/expr"
 	"github.com/expr-lang/expr/checker"
 	"github.com/expr-lang/expr/conf"
-	"github.com/expr-lang/expr/internal/testify/require"
+	"github.com/stretchr/testify/require"
 	"github.com/expr-lang/expr/parser"
 )
 
